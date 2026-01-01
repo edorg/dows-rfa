@@ -35,7 +35,7 @@ public class PostResumeCertificateEntityRequest {
     @Schema(description = "证书验证链接")
     private String certificate_url;
 
-    @Schema(description = "证书描述（如 "云计算架构师认证"）")
+    @Schema(description = "证书描述（如云计算架构师认证）")
     private String description;
 
     @Schema(description = "是否可用0-可用，1-不可用")

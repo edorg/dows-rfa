@@ -30,7 +30,7 @@ public class ResumeCertificateEntity extends CrudEntity<ResumeCertificateEntity>
     private String expireDate;
     @Schema(title = "证书验证链接")
     private String certificateUrl;
-    @Schema(title = "证书描述（如 "云计算架构师认证"）")
+    @Schema(title = "证书描述（如 云计算架构师认证）")
     private String description;
     @Schema(title = "是否可用0-可用，1-不可用")
     private Boolean state;
