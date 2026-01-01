@@ -3,11 +3,6 @@ package org.dows.rfa.open;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -31,5 +26,11 @@ public class PostResumeFileEntityRequest {
 
     @Schema(description = "原始文件名")
     private String fileName;
+
+    @Schema(description = "文件路径")
+    private String filePath;
+
+    @Schema(description = "批次号")
+    private String batchNo;
 
 }

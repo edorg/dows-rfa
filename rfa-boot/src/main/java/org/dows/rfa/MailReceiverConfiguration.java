@@ -28,7 +28,7 @@ import java.util.Properties;
 @Slf4j
 @Configuration
 @EnableIntegration
-@Order(Ordered.LOWEST_PRECEDENCE) // 确保在DataInitializer之后执行
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class MailReceiverConfiguration implements ApplicationRunner {
 
 
@@ -47,7 +47,7 @@ public class MailReceiverConfiguration implements ApplicationRunner {
      *
      * @param message 邮件消息
      */
-    @ServiceActivator(inputChannel = "commonMailHandlerChannel")
+    @ServiceActivator(inputChannel = "mailHandlerChannel")
     public void handleReceivedMail(Message<?> message) {
         mailReceivable.receive((MimeMessage) message.getPayload());
     }
@@ -57,8 +57,8 @@ public class MailReceiverConfiguration implements ApplicationRunner {
      *
      * @return DirectChannel
      */
-    @Bean("commonMailHandlerChannel")
-    public DirectChannel commonMailHandlerChannel() {
+    @Bean("mailHandlerChannel")
+    public DirectChannel mailHandlerChannel() {
         DirectChannel directChannel = new DirectChannel();
         directChannel.setDatatypes(MimeMessage.class);
         return directChannel;
@@ -161,10 +161,10 @@ public class MailReceiverConfiguration implements ApplicationRunner {
                 log.info("执行邮件轮询任务，配置ID：{}", config.getKey());
 
                 // 获取新邮件并发送到通道
-                Object message = messageSource.receive();
+                Message<?> message = messageSource.receive();
                 if (message != null) {
                     log.info("接收到新邮件，配置ID：{}", config.getKey());
-                    channels.get(config.getKey()).send((org.springframework.messaging.Message<?>) message);
+                    channels.get(config.getKey()).send(message);
                 } else {
                     log.debug("未接收到新邮件，配置ID：{}", config.getKey());
                 }
